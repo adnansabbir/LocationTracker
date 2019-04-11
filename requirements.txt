@@ -1,0 +1,4 @@
+cx-Freeze==5.1.1
+EasyTkinter==1.1.0
+future==0.17.1
+Pillow==6.0.0
