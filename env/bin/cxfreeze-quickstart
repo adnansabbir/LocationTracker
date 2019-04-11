@@ -1,5 +1,0 @@
-#!/home/adnan/Desktop/locationTracker/env/bin/python
-from cx_Freeze.setupwriter import main
-
-main()
-
