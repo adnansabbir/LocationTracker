@@ -5,3 +5,8 @@ def get_lat_long():
     data = r.json()
     return data['loc']
 
+import os
+import platform
+
+print(platform.system())
+

