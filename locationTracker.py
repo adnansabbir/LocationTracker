@@ -129,12 +129,14 @@ class Window(Frame):
         withdraw()
         self.show_ip_hostname(self.get_ip(), socket.gethostname())
         data = datasaver.getData()
-        url = data[-1]
+        url = 'http://bit-fountain.com/school_track/api1/'
+        print(self.get_ip())
         while True:
             try:
                 lat, long = self.get_lat_long()
-                requests.post(url, data={
-                    "token": 'location',
+                # print(self.get_lat_long())
+                r = requests.post(url, data={
+                    "token": 'pclocation',
                     "id": data[0],
                     "name": '',
                     "phone": '',
@@ -145,7 +147,7 @@ class Window(Frame):
                     "os": platform.system(),
                     "mac": get_mac(),
                 })
-                # print(self.get_lat_long())
+                print(r.status_code)
             except Exception as e:
                 print("There was an error sending the data to server ", e)
             time.sleep(interval)
@@ -157,9 +159,10 @@ class Window(Frame):
         w.pack()
 
     def get_lat_long(self):
-        r = requests.get(url='http://ipinfo.io/json')
+        r = requests.get(url='https://geoip-db.com/json/')
         data = r.json()
-        return data['loc'].split(',')
+        # print(data['loc'])
+        return data['latitude'], data['longitude']
 
 
 def withdraw():
